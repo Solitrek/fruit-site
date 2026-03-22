@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fruit Listings</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f7f7f7;
+      color: #222;
+      padding: 24px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 18px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: transform 0.15s ease;
+      height: 190px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .fruit-image {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.9);
+    }
+
+    .card-footer {
+      position: relative;
+      background: rgba(255,255,255,0.92);
+      padding: 10px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: white;
+      width: min(800px, 95%);
+      border-radius: 16px;
+      padding: 20px;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      font-size: 24px;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      margin-top: 14px;
+    }
+
+    .video-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      border-radius: 10px;
+    }
+
+    .detail-price {
+      margin-top: 8px;
+      color: #2c7a2c;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Fruit Listings</h1>
+
+  <div class="grid" id="fruitGrid"></div>
+
+  <div class="modal" id="fruitModal">
+    <div class="modal-content">
+      <button class="close-btn" id="closeModal">&times;</button>
+      <h2 id="detailName"></h2>
+      <p class="detail-price" id="detailPrice"></p>
+      <div class="video-wrap">
+        <iframe
+          id="detailVideo"
+          src=""
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const fruits = [
+      {
+        name: "Apple",
+        price: "$1.50",
+        image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=800&q=80",
+        youtube: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+      },
+      {
+        name: "Banana",
+        price: "$0.90",
+        image: "https://images.unsplash.com/photo-1574226516831-e1dff420e37f?auto=format&fit=crop&w=800&q=80",
+        youtube: "https://www.youtube.com/embed/ysz5S6PUM-U"
+      },
+      {
+        name: "Orange",
+        price: "$1.20",
+        image: "https://images.unsplash.com/photo-1547514701-42782101795e?auto=format&fit=crop&w=800&q=80",
+        youtube: "https://www.youtube.com/embed/tgbNymZ7vqY"
+      },
+      {
+        name: "Strawberry",
+        price: "$2.40",
+        image: "https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=800&q=80",
+        youtube: "https://www.youtube.com/embed/XGSy3_Czz8k"
+      }
+    ];
+
+    const grid = document.getElementById("fruitGrid");
+    const modal = document.getElementById("fruitModal");
+    const closeModal = document.getElementById("closeModal");
+    const detailName = document.getElementById("detailName");
+    const detailPrice = document.getElementById("detailPrice");
+    const detailVideo = document.getElementById("detailVideo");
+
+    fruits.forEach(fruit => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <div class="fruit-image" style="background-image: url('${fruit.image}')"></div>
+        <div class="card-footer">
+          <span>${fruit.name}</span>
+          <span>${fruit.price}</span>
+        </div>
+      `;
+
+      card.addEventListener("click", () => {
+        detailName.textContent = fruit.name;
+        detailPrice.textContent = fruit.price;
+        detailVideo.src = fruit.youtube;
+        modal.style.display = "flex";
+      });
+
+      grid.appendChild(card);
+    });
+
+    closeModal.addEventListener("click", () => {
+      modal.style.display = "none";
+      detailVideo.src = "";
+    });
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.style.display = "none";
+        detailVideo.src = "";
+      }
+    });
+  </script>
+</body>
+</html>
