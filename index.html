@@ -10,7 +10,6 @@
       background: #f7f7f7;
     }
 
-    /* HEADER */
     .header {
       display: flex;
       align-items: center;
@@ -36,7 +35,6 @@
       font-weight: bold;
     }
 
-    /* MAIN */
     .container {
       padding: 20px;
     }
@@ -44,6 +42,7 @@
     .grid {
       display: flex;
       gap: 20px;
+      flex-wrap: wrap;
     }
 
     .card {
@@ -56,9 +55,15 @@
       padding: 10px;
       border-radius: 10px;
       font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
-    /* FOOTER */
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+
     .footer {
       margin-top: 40px;
       padding: 20px;
@@ -70,34 +75,123 @@
     .contact {
       margin: 5px 0;
     }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: white;
+      width: 90%;
+      max-width: 700px;
+      border-radius: 12px;
+      padding: 20px;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 28px;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      margin-top: 15px;
+    }
+
+    .video-wrap iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      border-radius: 8px;
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
   <div class="header">
     <div class="logo">Logo</div>
     <div class="title">Lan's Organic Garden</div>
   </div>
 
-  <!-- MAIN CONTENT -->
   <div class="container">
     <h2>Fruit Listings</h2>
 
     <div class="grid">
-      <div class="card">Apple - $1.50</div>
-      <div class="card">Banana - $0.90</div>
-      <div class="card">Orange - $1.20</div>
+      <div class="card" onclick="openModal('Apple', '$1.50', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+        Apple - $1.50
+      </div>
+
+      <div class="card" onclick="openModal('Banana', '$0.90', 'https://www.youtube.com/embed/ysz5S6PUM-U')">
+        Banana - $0.90
+      </div>
+
+      <div class="card" onclick="openModal('Orange', '$1.20', 'https://www.youtube.com/embed/tgbNymZ7vqY')">
+        Orange - $1.20
+      </div>
     </div>
   </div>
 
-  <!-- FOOTER -->
   <div class="footer">
     <div class="contact">Email: example@email.com</div>
     <div class="contact">Phone: (123) 456-7890</div>
     <div class="contact">Location: Pomona, CA</div>
   </div>
+
+  <div class="modal" id="fruitModal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()">&times;</button>
+      <h2 id="fruitName"></h2>
+      <p id="fruitPrice"></p>
+
+      <div class="video-wrap">
+        <iframe
+          id="fruitVideo"
+          src=""
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal(name, price, videoUrl) {
+      document.getElementById("fruitName").textContent = name;
+      document.getElementById("fruitPrice").textContent = price;
+      document.getElementById("fruitVideo").src = videoUrl;
+      document.getElementById("fruitModal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("fruitModal").style.display = "none";
+      document.getElementById("fruitVideo").src = "";
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById("fruitModal");
+      if (event.target === modal) {
+        closeModal();
+      }
+    };
+  </script>
 
 </body>
 </html>
