@@ -21,14 +21,12 @@
     }
 
     .logo {
-      width: 50px;
-      height: 50px;
-      background: lightgray;
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
       border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
+      background: #eee;
+      flex-shrink: 0;
     }
 
     .title {
@@ -49,36 +47,37 @@
     .card {
       width: 300px;
       height: 300px;
-      background: lightgray;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      padding: 15px;
-      border-radius: 10px;
-      font-weight: bold;
-      font-size: 18px;
+      border-radius: 14px;
+      overflow: hidden;
       cursor: pointer;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
       transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
     .card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.16);
     }
 
-    .card img {
-      width: 100%;
-      height: 130px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .card-footer {
-      padding: 10px 12px;
+    .card-overlay {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 16px 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      color: white;
       font-weight: bold;
+      font-size: 20px;
+      background: rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
 
     .footer {
@@ -145,7 +144,7 @@
 <body>
 
   <div class="header">
-    <img class="logo" id="logoImg" src="" alt="Logo">
+    <img class="logo" id="logoImg" src="https://via.placeholder.com/120x120.png?text=Logo" alt="Logo">
     <div class="title">Lan's Organic Garden</div>
   </div>
 
@@ -153,25 +152,34 @@
     <h2>Fruit Listings</h2>
 
     <div class="grid">
-      <div class="card" onclick="openModal('Apple', '$1.50', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
-        <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=800&q=80" alt="Apple">
-        <div class="card-footer">
+      <div
+        class="card"
+        style="background-image: url('https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=1200&q=80');"
+        onclick="openModal('Apple', '$1.50', 'https://www.youtube.com/embed/dQw4w9WgXcQ')"
+      >
+        <div class="card-overlay">
           <span>Apple</span>
           <span>$1.50</span>
         </div>
       </div>
 
-      <div class="card" onclick="openModal('Banana', '$0.90', 'https://www.youtube.com/embed/ysz5S6PUM-U')">
-        <img src="https://images.unsplash.com/photo-1574226516831-e1dff420e37f?auto=format&fit=crop&w=800&q=80" alt="Banana">
-        <div class="card-footer">
+      <div
+        class="card"
+        style="background-image: url('https://commons.wikimedia.org/wiki/Special:FilePath/Banana-Single.jpg');"
+        onclick="openModal('Banana', '$0.90', 'https://www.youtube.com/embed/ysz5S6PUM-U')"
+      >
+        <div class="card-overlay">
           <span>Banana</span>
           <span>$0.90</span>
         </div>
       </div>
 
-      <div class="card" onclick="openModal('Orange', '$1.20', 'https://www.youtube.com/embed/tgbNymZ7vqY')">
-        <img src="https://images.unsplash.com/photo-1547514701-42782101795e?auto=format&fit=crop&w=800&q=80" alt="Orange">
-        <div class="card-footer">
+      <div
+        class="card"
+        style="background-image: url('https://images.unsplash.com/photo-1547514701-42782101795e?auto=format&fit=crop&w=1200&q=80');"
+        onclick="openModal('Orange', '$1.20', 'https://www.youtube.com/embed/tgbNymZ7vqY')"
+      >
+        <div class="card-overlay">
           <span>Orange</span>
           <span>$1.20</span>
         </div>
@@ -203,6 +211,11 @@
   </div>
 
   <script>
+    // PASTE A DIRECT IMAGE LINK HERE
+    const logoURL = "https://i.ibb.co/Z1kXD59k/64e880a7-5b25-47bd-b224-2a13ac539b49.png";
+
+    document.getElementById("logoImg").src = logoURL;
+
     function openModal(name, price, videoUrl) {
       document.getElementById("fruitName").textContent = name;
       document.getElementById("fruitPrice").textContent = price;
@@ -220,11 +233,6 @@
       if (event.target === modal) {
         closeModal();
       }
-      // PUT YOUR LOGO LINK HERE
-    const logoURL = "https://ibb.co/NnHCB5RH";
-
-// auto apply logo
-    document.getElementById("logoImg").src = logoURL;
     };
   </script>
 
