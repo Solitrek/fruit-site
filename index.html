@@ -8,6 +8,7 @@
       font-family: Arial, sans-serif;
       margin: 0;
       background: #f7f7f7;
+      color: #222;
     }
 
     .header {
@@ -46,22 +47,33 @@
     }
 
     .card {
-      width: 150px;
-      height: 150px;
-      background: lightgray;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      padding: 10px;
-      border-radius: 10px;
-      font-weight: bold;
+      width: 170px;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
       cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
       transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
     .card:hover {
       transform: translateY(-4px);
       box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+
+    .card img {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-footer {
+      padding: 10px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
     }
 
     .footer {
@@ -84,6 +96,7 @@
       justify-content: center;
       align-items: center;
       padding: 20px;
+      z-index: 1000;
     }
 
     .modal-content {
@@ -136,15 +149,27 @@
 
     <div class="grid">
       <div class="card" onclick="openModal('Apple', '$1.50', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
-        Apple - $1.50
+        <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=800&q=80" alt="Apple">
+        <div class="card-footer">
+          <span>Apple</span>
+          <span>$1.50</span>
+        </div>
       </div>
 
       <div class="card" onclick="openModal('Banana', '$0.90', 'https://www.youtube.com/embed/ysz5S6PUM-U')">
-        Banana - $0.90
+        <img src="https://images.unsplash.com/photo-1574226516831-e1dff420e37f?auto=format&fit=crop&w=800&q=80" alt="Banana">
+        <div class="card-footer">
+          <span>Banana</span>
+          <span>$0.90</span>
+        </div>
       </div>
 
       <div class="card" onclick="openModal('Orange', '$1.20', 'https://www.youtube.com/embed/tgbNymZ7vqY')">
-        Orange - $1.20
+        <img src="https://images.unsplash.com/photo-1547514701-42782101795e?auto=format&fit=crop&w=800&q=80" alt="Orange">
+        <div class="card-footer">
+          <span>Orange</span>
+          <span>$1.20</span>
+        </div>
       </div>
     </div>
   </div>
